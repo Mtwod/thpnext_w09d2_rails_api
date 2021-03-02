@@ -18,6 +18,7 @@ class ArticlesController < ApplicationController
   # POST /articles
   def create
     @article = Article.new(article_params)
+    @article.user = current_user
 
     if @article.save
       render json: @article, status: :created, location: @article
