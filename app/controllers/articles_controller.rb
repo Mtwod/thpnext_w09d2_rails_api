@@ -1,5 +1,7 @@
 class ArticlesController < ApplicationController
   before_action :set_article, only: [:show, :update, :destroy]
+  before_action :authenticate_user!, only: [:create, :update, :destroy]
+  before_action :send_error_if_not_author, only: [:create, :update, :destroy]
 
   # GET /articles
   def index
@@ -47,5 +49,11 @@ class ArticlesController < ApplicationController
     # Only allow a list of trusted parameters through.
     def article_params
       params.require(:article).permit(:title, :content)
+    end
+
+    def send_error_if_not_author
+      unless current_user === @article.user
+        render json: { error: 'You are not the author of this article.'}, status: 401
+      end
     end
 end

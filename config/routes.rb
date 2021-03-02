@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :articles
+
+  Rails.application.routes.default_url_options[:host] = 'localhost:3000'
 
   namespace :api, defaults: { format: :json } do
     resources :users, only: %w[show]
@@ -17,6 +20,5 @@ Rails.application.routes.draw do
       registrations: 'registrations'
     }
 
-  resources :articles
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

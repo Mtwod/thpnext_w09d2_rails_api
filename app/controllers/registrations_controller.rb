@@ -7,3 +7,4 @@ class RegistrationsController < Devise::RegistrationsController
 
     render_jsonapi_response(resource)
   end
+end
